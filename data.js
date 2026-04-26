@@ -132,6 +132,50 @@ window.STYLES = [
     ],
     tags: ['mansard', 'french', 'victorian-era', 'dormered'],
     svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="80" y="135" width="240" height="120" fill="#c98e6e" stroke="#3e3120" stroke-width="1.5"/><polygon points="70,135 100,75 300,75 330,135" fill="#3a2c1f" stroke="#3e3120" stroke-width="1.5"/><line x1="73" y1="115" x2="327" y2="115" stroke="#5a4530"/><line x1="76" y1="95" x2="324" y2="95" stroke="#5a4530"/><rect x="100" y="73" width="200" height="4" fill="#2a2014"/><g stroke="#3e3120"><line x1="110" y1="73" x2="110" y2="65"/><line x1="125" y1="73" x2="125" y2="65"/><line x1="140" y1="73" x2="140" y2="65"/><line x1="155" y1="73" x2="155" y2="65"/><line x1="170" y1="73" x2="170" y2="65"/><line x1="185" y1="73" x2="185" y2="65"/><line x1="200" y1="73" x2="200" y2="63"/><line x1="215" y1="73" x2="215" y2="65"/><line x1="230" y1="73" x2="230" y2="65"/><line x1="245" y1="73" x2="245" y2="65"/><line x1="260" y1="73" x2="260" y2="65"/><line x1="275" y1="73" x2="275" y2="65"/><line x1="290" y1="73" x2="290" y2="65"/></g><rect x="118" y="100" width="38" height="35" fill="#c98e6e" stroke="#3e3120"/><polygon points="113,100 137,82 161,100" fill="#5a4530" stroke="#3e3120"/><rect x="124" y="108" width="26" height="22" fill="#cfd9e3" stroke="#3e3120"/><rect x="181" y="100" width="38" height="35" fill="#c98e6e" stroke="#3e3120"/><polygon points="176,100 200,82 224,100" fill="#5a4530" stroke="#3e3120"/><rect x="187" y="108" width="26" height="22" fill="#cfd9e3" stroke="#3e3120"/><rect x="244" y="100" width="38" height="35" fill="#c98e6e" stroke="#3e3120"/><polygon points="239,100 263,82 287,100" fill="#5a4530" stroke="#3e3120"/><rect x="250" y="108" width="26" height="22" fill="#cfd9e3" stroke="#3e3120"/><rect x="65" y="130" width="270" height="10" fill="#e8c4a8" stroke="#3e3120"/><g fill="#e8c4a8" stroke="#3e3120"><polygon points="80,140 80,150 88,150"/><polygon points="130,140 130,150 138,150"/><polygon points="180,140 180,150 188,150"/><polygon points="230,140 230,150 238,150"/><polygon points="280,140 280,150 288,150"/></g><g fill="#cfd9e3" stroke="#3e3120"><rect x="105" y="160" width="32" height="42"/><rect x="263" y="160" width="32" height="42"/><rect x="105" y="215" width="32" height="38"/><rect x="263" y="215" width="32" height="38"/><rect x="184" y="160" width="32" height="42"/></g><rect x="184" y="210" width="32" height="45" fill="#3e2a18" stroke="#3e3120"/></svg>'
+  },
+  {
+    id: 'queen-anne',
+    name: 'Queen Anne',
+    period: '1880–1910',
+    region: 'Nationwide; the dominant Victorian-era house',
+    summary: 'The most exuberant Victorian style — a deliberate rejection of symmetry. Asymmetric massing, a corner turret, a deep wraparound porch, and a riot of textures: clapboard, scalloped shingles, spindlework, and gables piling on top of each other.',
+    keyFeatures: [
+      'Asymmetric facade and irregular roofline',
+      'Round or octagonal corner tower / turret with a conical roof',
+      'Deep wraparound porch with turned spindles and decorative brackets',
+      'Multiple wall textures: clapboard below, patterned shingles in the gables',
+      'Dominant front-facing gable with decorative trim',
+      'Bay windows and projecting bays'
+    ],
+    elements: [
+      'A round corner turret topped with a conical roof and finial spike',
+      'A deep wraparound porch with turned spindlework posts and trim',
+      'Patterned scalloped shingles filling the front-facing gable'
+    ],
+    tags: ['victorian', 'asymmetric', 'turret', 'wraparound-porch'],
+    svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="150" y="120" width="190" height="135" fill="#e6c2a6" stroke="#3e3120" stroke-width="1.5"/><polygon points="148,120 195,90 242,120" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><polygon points="240,120 295,55 350,120" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><polygon points="248,120 295,75 342,120" fill="#d4b08c" stroke="#3e3120" stroke-width="1.5"/><g fill="none" stroke="#3e3120" stroke-width="0.7"><path d="M260,100 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0"/><path d="M260,108 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0"/></g><path d="M55 255 L55 145 Q55 100 100 100 Q145 100 145 145 L145 255 Z" fill="#e6c2a6" stroke="#3e3120" stroke-width="1.5"/><polygon points="47,100 100,30 153,100" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><line x1="100" y1="30" x2="100" y2="14" stroke="#3e3120" stroke-width="2"/><circle cx="100" cy="13" r="3" fill="#3e3120"/><rect x="76" y="155" width="16" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="108" y="155" width="16" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="50" y="220" width="295" height="35" fill="#d4b08c" stroke="#3e3120" stroke-width="1.5"/><g fill="#a37a55" stroke="#3e3120"><rect x="62" y="222" width="5" height="33"/><rect x="148" y="222" width="5" height="33"/><rect x="204" y="222" width="5" height="33"/><rect x="260" y="222" width="5" height="33"/><rect x="316" y="222" width="5" height="33"/></g><line x1="55" y1="232" x2="345" y2="232" stroke="#a37a55"/><rect x="170" y="135" width="32" height="38" fill="#cfd9e3" stroke="#3e3120"/><rect x="225" y="135" width="32" height="38" fill="#cfd9e3" stroke="#3e3120"/><rect x="170" y="190" width="32" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="240" y="190" width="32" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="296" y="190" width="32" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="208" y="225" width="22" height="30" fill="#3e2a18" stroke="#3e3120"/></svg>'
+  },
+  {
+    id: 'foursquare',
+    name: 'American Foursquare',
+    period: '1895–1930',
+    region: 'Nationwide; especially Midwestern streetcar suburbs',
+    summary: 'A reaction to Victorian fussiness — boxy, plain, and economical to build. Two-and-a-half stories, square in plan, sold by the thousands through Sears and other mail-order catalogs. The plan literally has four roughly equal rooms per floor.',
+    keyFeatures: [
+      'Boxy, nearly cubic two-and-a-half-story massing',
+      'Hipped (pyramid-shaped) roof rising to a single point',
+      'Single large hipped or gabled dormer centered on the front roof slope',
+      'Full-width front porch with simple square columns',
+      'Symmetric or near-symmetric facade',
+      'Four roughly equal-sized rooms on each floor (the namesake plan)'
+    ],
+    elements: [
+      'A boxy, nearly cubic 2½-story house with a pyramidal hipped roof',
+      'A single large dormer centered on the front roof slope',
+      'A full-width front porch with simple square columns'
+    ],
+    tags: ['boxy', 'symmetric', 'hipped-roof', 'mail-order'],
+    svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="80" y="115" width="240" height="140" fill="#dcc89c" stroke="#3e3120" stroke-width="1.5"/><polygon points="70,115 200,55 330,115" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><rect x="170" y="80" width="60" height="35" fill="#dcc89c" stroke="#3e3120" stroke-width="1.5"/><polygon points="165,80 200,60 235,80" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><rect x="180" y="88" width="40" height="22" fill="#cfd9e3" stroke="#3e3120"/><line x1="200" y1="88" x2="200" y2="110" stroke="#3e3120"/><g fill="#cfd9e3" stroke="#3e3120"><rect x="105" y="135" width="38" height="48"/><rect x="257" y="135" width="38" height="48"/></g><g stroke="#3e3120"><line x1="105" y1="160" x2="143" y2="160"/><line x1="124" y1="135" x2="124" y2="183"/><line x1="257" y1="160" x2="295" y2="160"/><line x1="276" y1="135" x2="276" y2="183"/></g><rect x="60" y="200" width="280" height="55" fill="#c4a878" stroke="#3e3120" stroke-width="1.5"/><rect x="58" y="195" width="284" height="8" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><g fill="#dcc89c" stroke="#3e3120"><rect x="68" y="203" width="14" height="52"/><rect x="156" y="203" width="14" height="52"/><rect x="230" y="203" width="14" height="52"/><rect x="318" y="203" width="14" height="52"/></g><rect x="184" y="218" width="32" height="37" fill="#3e2a18" stroke="#3e3120"/><rect x="100" y="220" width="40" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="260" y="220" width="40" height="32" fill="#cfd9e3" stroke="#3e3120"/></svg>'
   }
 ];
 
