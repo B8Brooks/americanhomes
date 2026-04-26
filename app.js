@@ -112,9 +112,114 @@ App.selectStyle = function (id) {
 
 App.el('style-search').addEventListener('input', App.renderStyleIndex);
 
-// quiz functions defined in the next section of this file.
-App.nextStyleQuiz = function () {};
-App.nextElementQuiz = function () {};
+// ---- STYLE QUIZ --------------------------------------------------------
+
+App.nextStyleQuiz = function () {
+  var answer = App.pickRandom(App.STYLES);
+  var distractors = App.shuffle(App.STYLES.filter(function (s) { return s.id !== answer.id; })).slice(0, 3);
+  var options = App.shuffle([answer].concat(distractors));
+  App.styleQuiz.current = answer;
+  App.el('sq-illustration').innerHTML = answer.svg;
+  var choices = App.el('sq-choices');
+  choices.innerHTML = '';
+  options.forEach(function (s) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'choice';
+    btn.dataset.id = s.id;
+    btn.textContent = s.name;
+    btn.addEventListener('click', function () { App.handleStyleQuizAnswer(s.id); });
+    choices.appendChild(btn);
+  });
+  App.el('sq-feedback').hidden = true;
+  App.el('sq-feedback').innerHTML = '';
+  App.el('sq-next').hidden = true;
+};
+
+App.handleStyleQuizAnswer = function (chosenId) {
+  var answer = App.styleQuiz.current;
+  var correct = chosenId === answer.id;
+  App.styleQuiz.total += 1;
+  if (correct) App.styleQuiz.score += 1;
+  document.querySelectorAll('#sq-choices button').forEach(function (btn) {
+    btn.disabled = true;
+    if (btn.dataset.id === answer.id) btn.classList.add(correct ? 'correct' : 'reveal');
+    else if (btn.dataset.id === chosenId) btn.classList.add('wrong');
+  });
+  var fb = App.el('sq-feedback');
+  fb.classList.remove('good', 'bad');
+  fb.classList.add(correct ? 'good' : 'bad');
+  fb.hidden = false;
+  fb.innerHTML = '<h4>' + (correct ? 'Correct.' : 'Not quite.') +
+                 ' This is ' + App.escape(answer.name) +
+                 ' (' + App.escape(answer.period) + ').</h4>' +
+                 '<p>' + App.escape(answer.summary) + '</p>';
+  App.el('sq-score').textContent = 'Score: ' + App.styleQuiz.score + ' / ' + App.styleQuiz.total;
+  App.el('sq-next').hidden = false;
+};
+
+App.el('sq-next').addEventListener('click', App.nextStyleQuiz);
+App.el('sq-reset').addEventListener('click', function () {
+  App.styleQuiz.score = 0;
+  App.styleQuiz.total = 0;
+  App.el('sq-score').textContent = 'Score: 0 / 0';
+  App.nextStyleQuiz();
+});
+
+// ---- ELEMENT QUIZ ------------------------------------------------------
+
+App.nextElementQuiz = function () {
+  var pool = App.STYLES.filter(function (s) { return s.elements && s.elements.length; });
+  var answer = App.pickRandom(pool);
+  var element = App.pickRandom(answer.elements);
+  var distractors = App.shuffle(App.STYLES.filter(function (s) { return s.id !== answer.id; })).slice(0, 3);
+  var options = App.shuffle([answer].concat(distractors));
+  App.elementQuiz.current = { style: answer, element: element };
+  App.el('eq-element').textContent = element;
+  var choices = App.el('eq-choices');
+  choices.innerHTML = '';
+  options.forEach(function (s) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'choice';
+    btn.dataset.id = s.id;
+    btn.textContent = s.name;
+    btn.addEventListener('click', function () { App.handleElementQuizAnswer(s.id); });
+    choices.appendChild(btn);
+  });
+  App.el('eq-feedback').hidden = true;
+  App.el('eq-feedback').innerHTML = '';
+  App.el('eq-next').hidden = true;
+};
+
+App.handleElementQuizAnswer = function (chosenId) {
+  var answer = App.elementQuiz.current.style;
+  var correct = chosenId === answer.id;
+  App.elementQuiz.total += 1;
+  if (correct) App.elementQuiz.score += 1;
+  document.querySelectorAll('#eq-choices button').forEach(function (btn) {
+    btn.disabled = true;
+    if (btn.dataset.id === answer.id) btn.classList.add(correct ? 'correct' : 'reveal');
+    else if (btn.dataset.id === chosenId) btn.classList.add('wrong');
+  });
+  var fb = App.el('eq-feedback');
+  fb.classList.remove('good', 'bad');
+  fb.classList.add(correct ? 'good' : 'bad');
+  fb.hidden = false;
+  fb.innerHTML = '<h4>' + (correct ? 'Correct.' : 'Not quite.') +
+                 ' That feature points to ' + App.escape(answer.name) + '.</h4>' +
+                 '<p>' + App.escape(answer.summary) + '</p>';
+  App.el('eq-score').textContent = 'Score: ' + App.elementQuiz.score + ' / ' + App.elementQuiz.total;
+  App.el('eq-next').hidden = false;
+};
+
+App.el('eq-next').addEventListener('click', App.nextElementQuiz);
+App.el('eq-reset').addEventListener('click', function () {
+  App.elementQuiz.score = 0;
+  App.elementQuiz.total = 0;
+  App.el('eq-score').textContent = 'Score: 0 / 0';
+  App.nextElementQuiz();
+});
 
 // ---- bootstrap ---------------------------------------------------------
 
