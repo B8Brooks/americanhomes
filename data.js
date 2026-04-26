@@ -176,6 +176,50 @@ window.STYLES = [
     ],
     tags: ['boxy', 'symmetric', 'hipped-roof', 'mail-order'],
     svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="80" y="115" width="240" height="140" fill="#dcc89c" stroke="#3e3120" stroke-width="1.5"/><polygon points="70,115 200,55 330,115" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><rect x="170" y="80" width="60" height="35" fill="#dcc89c" stroke="#3e3120" stroke-width="1.5"/><polygon points="165,80 200,60 235,80" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><rect x="180" y="88" width="40" height="22" fill="#cfd9e3" stroke="#3e3120"/><line x1="200" y1="88" x2="200" y2="110" stroke="#3e3120"/><g fill="#cfd9e3" stroke="#3e3120"><rect x="105" y="135" width="38" height="48"/><rect x="257" y="135" width="38" height="48"/></g><g stroke="#3e3120"><line x1="105" y1="160" x2="143" y2="160"/><line x1="124" y1="135" x2="124" y2="183"/><line x1="257" y1="160" x2="295" y2="160"/><line x1="276" y1="135" x2="276" y2="183"/></g><rect x="60" y="200" width="280" height="55" fill="#c4a878" stroke="#3e3120" stroke-width="1.5"/><rect x="58" y="195" width="284" height="8" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><g fill="#dcc89c" stroke="#3e3120"><rect x="68" y="203" width="14" height="52"/><rect x="156" y="203" width="14" height="52"/><rect x="230" y="203" width="14" height="52"/><rect x="318" y="203" width="14" height="52"/></g><rect x="184" y="218" width="32" height="37" fill="#3e2a18" stroke="#3e3120"/><rect x="100" y="220" width="40" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="260" y="220" width="40" height="32" fill="#cfd9e3" stroke="#3e3120"/></svg>'
+  },
+  {
+    id: 'craftsman',
+    name: 'Craftsman / Bungalow',
+    period: '1905–1930',
+    region: 'Originated in California; spread nationwide via pattern books and Sears',
+    summary: 'The American Arts & Crafts house — a deliberate retreat from Victorian ornament toward "honest" hand-built materials. Low to the ground, generous porches, exposed wood, and a kit-of-parts aesthetic that homeowners and catalogs both embraced.',
+    keyFeatures: [
+      'Low-pitched gabled roof, often front-gabled',
+      'Wide overhanging eaves with exposed rafter tails',
+      'Decorative knee braces or triangular brackets under the gables',
+      'Full or partial-width front porch deeply recessed under the main roof',
+      'Tapered (battered) square porch columns set on heavy stone piers',
+      'Mixed materials: wood shingle, clapboard, river stone'
+    ],
+    elements: [
+      'Tapered square porch columns sitting on heavy stone or brick piers',
+      'Exposed rafter tails poking out beneath wide overhanging eaves',
+      'Decorative wooden knee braces under a low front gable'
+    ],
+    tags: ['arts-and-crafts', 'low-pitch', 'porch', 'handcrafted'],
+    svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="60" y="135" width="280" height="120" fill="#a87a4a" stroke="#3e3120" stroke-width="1.5"/><polygon points="40,135 200,75 360,135" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><g fill="#5a4530" stroke="#3e3120"><rect x="44" y="135" width="6" height="6"/><rect x="62" y="135" width="6" height="6"/><rect x="80" y="135" width="6" height="6"/><rect x="98" y="135" width="6" height="6"/><rect x="296" y="135" width="6" height="6"/><rect x="314" y="135" width="6" height="6"/><rect x="332" y="135" width="6" height="6"/><rect x="350" y="135" width="6" height="6"/></g><polygon points="130,135 145,118 145,135" fill="#3e3120"/><polygon points="270,135 255,118 255,135" fill="#3e3120"/><rect x="190" y="100" width="20" height="14" fill="#3e3120"/><line x1="195" y1="100" x2="195" y2="114" stroke="#a87a4a"/><line x1="200" y1="100" x2="200" y2="114" stroke="#a87a4a"/><line x1="205" y1="100" x2="205" y2="114" stroke="#a87a4a"/><rect x="170" y="120" width="60" height="14" fill="#cfd9e3" stroke="#3e3120"/><line x1="190" y1="120" x2="190" y2="134" stroke="#3e3120"/><line x1="210" y1="120" x2="210" y2="134" stroke="#3e3120"/><rect x="100" y="155" width="55" height="55" fill="#cfd9e3" stroke="#3e3120"/><rect x="245" y="155" width="55" height="55" fill="#cfd9e3" stroke="#3e3120"/><g stroke="#3e3120"><line x1="100" y1="170" x2="155" y2="170"/><line x1="127" y1="155" x2="127" y2="210"/><line x1="245" y1="170" x2="300" y2="170"/><line x1="272" y1="155" x2="272" y2="210"/></g><rect x="160" y="180" width="80" height="75" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><rect x="155" y="175" width="90" height="8" fill="#5a4530" stroke="#3e3120"/><polygon points="162,183 173,183 175,225 160,225" fill="#a87a4a" stroke="#3e3120"/><polygon points="227,183 238,183 240,225 225,225" fill="#a87a4a" stroke="#3e3120"/><rect x="155" y="225" width="25" height="32" fill="#7a8a7a" stroke="#3e3120"/><rect x="220" y="225" width="25" height="32" fill="#7a8a7a" stroke="#3e3120"/><g stroke="#3e3120" stroke-width="0.7"><line x1="155" y1="240" x2="180" y2="240"/><line x1="167" y1="225" x2="167" y2="240"/><line x1="220" y1="240" x2="245" y2="240"/><line x1="232" y1="225" x2="232" y2="240"/></g><rect x="186" y="190" width="28" height="50" fill="#3e2a18" stroke="#3e3120"/></svg>'
+  },
+  {
+    id: 'tudor-revival',
+    name: 'Tudor Revival',
+    period: '1890–1940',
+    region: 'Streetcar suburbs nationwide, especially the Northeast and Midwest',
+    summary: 'A storybook style loosely based on late-medieval English cottages. The classic 1920s suburban "fairytale" house — steep cross gables, decorative half-timbering, tall casement windows, and a chimney big enough for Santa.',
+    keyFeatures: [
+      'Steeply pitched roof with prominent front-facing cross gable',
+      'Decorative half-timbering: dark wood beams set into stucco panels',
+      'Tall narrow casement windows grouped in twos, threes, or fours',
+      'Massive prominent chimney — often on the front facade',
+      'Mixed materials: brick, stone, and stucco',
+      'Round-arched front door, often with a heavy plank look'
+    ],
+    elements: [
+      'Decorative half-timbering: dark wood beams set into a stucco gable panel',
+      'A steep front-facing cross gable rising over a brick lower story',
+      'A massive prominent chimney featured on the front of the house'
+    ],
+    tags: ['storybook', 'half-timber', 'steep-gable', 'medieval'],
+    svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="60" y="170" width="180" height="85" fill="#b07050" stroke="#3e3120" stroke-width="1.5"/><polygon points="50,170 100,135 250,135 240,170" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><rect x="220" y="140" width="120" height="115" fill="#b07050" stroke="#3e3120" stroke-width="1.5"/><polygon points="210,140 280,55 350,140" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><polygon points="220,140 280,70 340,140" fill="#efe3c8" stroke="#3e3120" stroke-width="1.5"/><g stroke="#3e2010" stroke-width="2.5" fill="none"><line x1="245" y1="140" x2="245" y2="100"/><line x1="280" y1="140" x2="280" y2="76"/><line x1="315" y1="140" x2="315" y2="100"/><line x1="234" y1="115" x2="326" y2="115"/><line x1="225" y1="125" x2="244" y2="100"/><line x1="335" y1="125" x2="316" y2="100"/></g><g stroke="#7a3a25" stroke-width="0.6"><line x1="60" y1="180" x2="240" y2="180"/><line x1="60" y1="195" x2="240" y2="195"/><line x1="60" y1="210" x2="240" y2="210"/><line x1="60" y1="225" x2="240" y2="225"/><line x1="60" y1="240" x2="240" y2="240"/><line x1="220" y1="170" x2="220" y2="252"/><line x1="120" y1="170" x2="120" y2="252"/><line x1="180" y1="170" x2="180" y2="252"/></g><rect x="150" y="100" width="22" height="55" fill="#9b4b35" stroke="#3e3120" stroke-width="1.5"/><rect x="146" y="98" width="30" height="6" fill="#3e3120"/><g fill="#cfd9e3" stroke="#3e3120"><rect x="240" y="160" width="14" height="46"/><rect x="256" y="160" width="14" height="46"/><rect x="272" y="160" width="14" height="46"/></g><g stroke="#3e3120" stroke-width="0.5"><line x1="240" y1="175" x2="286" y2="175"/><line x1="240" y1="190" x2="286" y2="190"/></g><path d="M85,255 L85,225 Q105,205 125,225 L125,255 Z" fill="#5b3a22" stroke="#3e3120"/><line x1="105" y1="208" x2="105" y2="255" stroke="#3e2010"/><rect x="155" y="200" width="40" height="40" fill="#cfd9e3" stroke="#3e3120"/><g stroke="#3e3120" stroke-width="0.5"><line x1="155" y1="220" x2="195" y2="220"/><line x1="175" y1="200" x2="175" y2="240"/></g><rect x="296" y="175" width="20" height="30" fill="#cfd9e3" stroke="#3e3120"/></svg>'
   }
 ];
 
