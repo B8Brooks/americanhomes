@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>American Homes — Learn U.S. Residential Architecture</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">&#8962;</span>
+      <span class="brand-name">American Homes</span>
+    </div>
+    <nav class="modes" role="tablist" aria-label="App modes">
+      <button class="mode-btn active" data-mode="learn" role="tab" aria-selected="true">Learn</button>
+      <button class="mode-btn" data-mode="style-quiz" role="tab" aria-selected="false">Style Quiz</button>
+      <button class="mode-btn" data-mode="element-quiz" role="tab" aria-selected="false">Element Quiz</button>
+    </nav>
+  </header>
+
+  <main id="app">
+    <!-- LEARN -->
+    <section id="learn" class="view active">
+      <aside class="style-list" aria-label="Architectural styles">
+        <div class="search-wrap">
+          <input id="style-search" type="search" placeholder="Search styles..." aria-label="Search styles" />
+        </div>
+        <ul id="style-index"></ul>
+      </aside>
+      <article id="style-detail" class="style-detail" aria-live="polite"></article>
+    </section>
+
+    <!-- STYLE QUIZ -->
+    <section id="style-quiz" class="view">
+      <div class="quiz-card">
+        <div class="quiz-header">
+          <h2>Identify the style</h2>
+          <div class="quiz-progress">
+            <span id="sq-score">Score: 0 / 0</span>
+            <button id="sq-reset" class="ghost-btn" type="button">Reset</button>
+          </div>
+        </div>
+        <div id="sq-illustration" class="quiz-illustration"></div>
+        <p class="quiz-hint" id="sq-hint">Which architectural style is this?</p>
+        <div id="sq-choices" class="choices"></div>
+        <div id="sq-feedback" class="feedback" hidden></div>
+        <div class="quiz-footer">
+          <button id="sq-next" class="primary-btn" type="button" hidden>Next house &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ELEMENT QUIZ -->
+    <section id="element-quiz" class="view">
+      <div class="quiz-card">
+        <div class="quiz-header">
+          <h2>Match the element to a style</h2>
+          <div class="quiz-progress">
+            <span id="eq-score">Score: 0 / 0</span>
+            <button id="eq-reset" class="ghost-btn" type="button">Reset</button>
+          </div>
+        </div>
+        <div class="element-prompt">
+          <div class="element-label">This feature is most characteristic of...</div>
+          <div id="eq-element" class="element-text"></div>
+        </div>
+        <div id="eq-choices" class="choices"></div>
+        <div id="eq-feedback" class="feedback" hidden></div>
+        <div class="quiz-footer">
+          <button id="eq-next" class="primary-btn" type="button" hidden>Next element &rarr;</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>15 styles &middot; spans the 1600s to today</span>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
