@@ -88,6 +88,50 @@ window.STYLES = [
     ],
     tags: ['picturesque', 'romantic', 'asymmetric', 'pointed-arch'],
     svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="60" y="170" width="280" height="82" fill="#f0e6c5" stroke="#3e3120" stroke-width="1.5"/><polygon points="60,170 200,130 340,170" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><polygon points="155,180 200,40 245,180" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><polygon points="160,170 200,55 240,170" fill="#f0e6c5" stroke="#3e3120" stroke-width="1.5"/><g fill="#f0e6c5" stroke="#3e3120" stroke-width="0.8"><polygon points="160,170 165,162 170,170"/><polygon points="170,170 175,162 180,170"/><polygon points="180,170 185,162 190,170"/><polygon points="190,170 193,164 196,170"/><polygon points="204,170 207,164 210,170"/><polygon points="210,170 215,162 220,170"/><polygon points="220,170 225,162 230,170"/><polygon points="230,170 235,162 240,170"/></g><path d="M188,148 L188,108 Q200,90 212,108 L212,148 Z" fill="#cfd9e3" stroke="#3e3120"/><line x1="200" y1="100" x2="200" y2="148" stroke="#3e3120"/><line x1="188" y1="128" x2="212" y2="128" stroke="#3e3120"/><g stroke="#c8b896" stroke-width="1"><line x1="80" y1="170" x2="80" y2="252"/><line x1="100" y1="170" x2="100" y2="252"/><line x1="120" y1="170" x2="120" y2="252"/><line x1="140" y1="170" x2="140" y2="252"/><line x1="260" y1="170" x2="260" y2="252"/><line x1="280" y1="170" x2="280" y2="252"/><line x1="300" y1="170" x2="300" y2="252"/><line x1="320" y1="170" x2="320" y2="252"/></g><path d="M85,242 L85,212 Q100,195 115,212 L115,242 Z" fill="#cfd9e3" stroke="#3e3120"/><path d="M285,242 L285,212 Q300,195 315,212 L315,242 Z" fill="#cfd9e3" stroke="#3e3120"/><path d="M180,252 L180,205 Q200,188 220,205 L220,252 Z" fill="#5b3a22" stroke="#3e3120"/></svg>'
+  },
+  {
+    id: 'italianate',
+    name: 'Italianate',
+    period: '1840–1885',
+    region: 'Northeast and Midwest cities; California gold-rush towns',
+    summary: 'A loose riff on the Italian villa, popular in growing Victorian-era cities. Tall and boxy with a low-pitched roof, deep eaves carried on chunky decorative brackets, tall narrow windows, and often a small cupola perched on top.',
+    keyFeatures: [
+      'Two or three stories, boxy and tall',
+      'Low-pitched or nearly flat roof',
+      'Wide overhanging eaves carried by paired decorative brackets',
+      'Tall narrow windows, often with rounded or segmental arched tops',
+      'Elaborate hood moldings or pediments over the windows',
+      'Square cupola or belvedere centered on the roof'
+    ],
+    elements: [
+      'A low-pitched roof with widely overhanging eaves carried on paired wooden brackets',
+      'A small square cupola or belvedere centered on a low roof',
+      'Tall narrow round-arched windows with carved hood moldings'
+    ],
+    tags: ['italian-villa', 'bracketed-eaves', 'cupola', 'tall-windows'],
+    svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="80" y="100" width="240" height="155" fill="#d4b88e" stroke="#3e3120" stroke-width="1.5"/><polygon points="80,100 200,82 320,100" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><rect x="60" y="92" width="280" height="14" fill="#c89a64" stroke="#3e3120" stroke-width="1.5"/><g fill="#c89a64" stroke="#3e3120"><polygon points="76,106 76,118 84,118"/><polygon points="116,106 116,118 124,118"/><polygon points="156,106 156,118 164,118"/><polygon points="196,106 196,118 204,118"/><polygon points="236,106 236,118 244,118"/><polygon points="276,106 276,118 284,118"/><polygon points="316,106 316,118 324,118"/></g><rect x="180" y="60" width="40" height="22" fill="#d4b88e" stroke="#3e3120"/><polygon points="176,60 200,42 224,60" fill="#5a4530" stroke="#3e3120"/><rect x="190" y="66" width="6" height="14" fill="#cfd9e3" stroke="#3e3120"/><rect x="204" y="66" width="6" height="14" fill="#cfd9e3" stroke="#3e3120"/><g fill="#cfd9e3" stroke="#3e3120"><path d="M100,170 L100,135 Q113,118 126,135 L126,170 Z"/><path d="M180,170 L180,135 Q193,118 206,135 L206,170 Z"/><path d="M260,170 L260,135 Q273,118 286,135 L286,170 Z"/></g><g fill="none" stroke="#3e3120" stroke-width="1.2"><path d="M96,135 Q113,114 130,135"/><path d="M176,135 Q193,114 210,135"/><path d="M256,135 Q273,114 290,135"/></g><g fill="#cfd9e3" stroke="#3e3120"><path d="M100,240 L100,200 Q113,188 126,200 L126,240 Z"/><path d="M260,240 L260,200 Q273,188 286,200 L286,240 Z"/></g><path d="M180,255 L180,200 Q200,182 220,200 L220,255 Z" fill="#5b3a22" stroke="#3e3120"/></svg>'
+  },
+  {
+    id: 'second-empire',
+    name: 'Second Empire',
+    period: '1855–1885',
+    region: 'Northeast and Midwest cities; East Coast resort towns',
+    summary: 'A French import named for Napoleon III\'s reign. Defined entirely by one feature: the mansard roof — steep slanted sides that effectively make the attic a full extra floor, often punctuated by hooded dormers and crowned with iron cresting.',
+    keyFeatures: [
+      'Mansard roof: steep, near-vertical lower slope with a flat or shallow upper deck',
+      'Dormer windows piercing the mansard, often with hood moldings',
+      'Iron cresting along the flat top of the roof',
+      'Decorative bracketed cornice at the base of the mansard',
+      'Tall, elaborate first-story windows',
+      'Often a central tower projecting above the mansard line'
+    ],
+    elements: [
+      'A mansard roof — steep slanted sides covered in patterned slate, flat on top',
+      'Hooded dormer windows projecting from a steep mansard slope',
+      'Iron cresting running along the flat ridge of the roof'
+    ],
+    tags: ['mansard', 'french', 'victorian-era', 'dormered'],
+    svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="80" y="135" width="240" height="120" fill="#c98e6e" stroke="#3e3120" stroke-width="1.5"/><polygon points="70,135 100,75 300,75 330,135" fill="#3a2c1f" stroke="#3e3120" stroke-width="1.5"/><line x1="73" y1="115" x2="327" y2="115" stroke="#5a4530"/><line x1="76" y1="95" x2="324" y2="95" stroke="#5a4530"/><rect x="100" y="73" width="200" height="4" fill="#2a2014"/><g stroke="#3e3120"><line x1="110" y1="73" x2="110" y2="65"/><line x1="125" y1="73" x2="125" y2="65"/><line x1="140" y1="73" x2="140" y2="65"/><line x1="155" y1="73" x2="155" y2="65"/><line x1="170" y1="73" x2="170" y2="65"/><line x1="185" y1="73" x2="185" y2="65"/><line x1="200" y1="73" x2="200" y2="63"/><line x1="215" y1="73" x2="215" y2="65"/><line x1="230" y1="73" x2="230" y2="65"/><line x1="245" y1="73" x2="245" y2="65"/><line x1="260" y1="73" x2="260" y2="65"/><line x1="275" y1="73" x2="275" y2="65"/><line x1="290" y1="73" x2="290" y2="65"/></g><rect x="118" y="100" width="38" height="35" fill="#c98e6e" stroke="#3e3120"/><polygon points="113,100 137,82 161,100" fill="#5a4530" stroke="#3e3120"/><rect x="124" y="108" width="26" height="22" fill="#cfd9e3" stroke="#3e3120"/><rect x="181" y="100" width="38" height="35" fill="#c98e6e" stroke="#3e3120"/><polygon points="176,100 200,82 224,100" fill="#5a4530" stroke="#3e3120"/><rect x="187" y="108" width="26" height="22" fill="#cfd9e3" stroke="#3e3120"/><rect x="244" y="100" width="38" height="35" fill="#c98e6e" stroke="#3e3120"/><polygon points="239,100 263,82 287,100" fill="#5a4530" stroke="#3e3120"/><rect x="250" y="108" width="26" height="22" fill="#cfd9e3" stroke="#3e3120"/><rect x="65" y="130" width="270" height="10" fill="#e8c4a8" stroke="#3e3120"/><g fill="#e8c4a8" stroke="#3e3120"><polygon points="80,140 80,150 88,150"/><polygon points="130,140 130,150 138,150"/><polygon points="180,140 180,150 188,150"/><polygon points="230,140 230,150 238,150"/><polygon points="280,140 280,150 288,150"/></g><g fill="#cfd9e3" stroke="#3e3120"><rect x="105" y="160" width="32" height="42"/><rect x="263" y="160" width="32" height="42"/><rect x="105" y="215" width="32" height="38"/><rect x="263" y="215" width="32" height="38"/><rect x="184" y="160" width="32" height="42"/></g><rect x="184" y="210" width="32" height="45" fill="#3e2a18" stroke="#3e3120"/></svg>'
   }
 ];
 
