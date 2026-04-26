@@ -220,6 +220,50 @@ window.STYLES = [
     ],
     tags: ['storybook', 'half-timber', 'steep-gable', 'medieval'],
     svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="60" y="170" width="180" height="85" fill="#b07050" stroke="#3e3120" stroke-width="1.5"/><polygon points="50,170 100,135 250,135 240,170" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><rect x="220" y="140" width="120" height="115" fill="#b07050" stroke="#3e3120" stroke-width="1.5"/><polygon points="210,140 280,55 350,140" fill="#5a4530" stroke="#3e3120" stroke-width="1.5"/><polygon points="220,140 280,70 340,140" fill="#efe3c8" stroke="#3e3120" stroke-width="1.5"/><g stroke="#3e2010" stroke-width="2.5" fill="none"><line x1="245" y1="140" x2="245" y2="100"/><line x1="280" y1="140" x2="280" y2="76"/><line x1="315" y1="140" x2="315" y2="100"/><line x1="234" y1="115" x2="326" y2="115"/><line x1="225" y1="125" x2="244" y2="100"/><line x1="335" y1="125" x2="316" y2="100"/></g><g stroke="#7a3a25" stroke-width="0.6"><line x1="60" y1="180" x2="240" y2="180"/><line x1="60" y1="195" x2="240" y2="195"/><line x1="60" y1="210" x2="240" y2="210"/><line x1="60" y1="225" x2="240" y2="225"/><line x1="60" y1="240" x2="240" y2="240"/><line x1="220" y1="170" x2="220" y2="252"/><line x1="120" y1="170" x2="120" y2="252"/><line x1="180" y1="170" x2="180" y2="252"/></g><rect x="150" y="100" width="22" height="55" fill="#9b4b35" stroke="#3e3120" stroke-width="1.5"/><rect x="146" y="98" width="30" height="6" fill="#3e3120"/><g fill="#cfd9e3" stroke="#3e3120"><rect x="240" y="160" width="14" height="46"/><rect x="256" y="160" width="14" height="46"/><rect x="272" y="160" width="14" height="46"/></g><g stroke="#3e3120" stroke-width="0.5"><line x1="240" y1="175" x2="286" y2="175"/><line x1="240" y1="190" x2="286" y2="190"/></g><path d="M85,255 L85,225 Q105,205 125,225 L125,255 Z" fill="#5b3a22" stroke="#3e3120"/><line x1="105" y1="208" x2="105" y2="255" stroke="#3e2010"/><rect x="155" y="200" width="40" height="40" fill="#cfd9e3" stroke="#3e3120"/><g stroke="#3e3120" stroke-width="0.5"><line x1="155" y1="220" x2="195" y2="220"/><line x1="175" y1="200" x2="175" y2="240"/></g><rect x="296" y="175" width="20" height="30" fill="#cfd9e3" stroke="#3e3120"/></svg>'
+  },
+  {
+    id: 'spanish-colonial-revival',
+    name: 'Spanish Colonial Revival',
+    period: '1915–1940',
+    region: 'California, Florida, the Southwest',
+    summary: 'A romantic interpretation of Mexican mission and Andalusian farmhouse traditions, made fashionable by the 1915 Panama-California Exposition in San Diego. Whitewashed stucco, red barrel-tile roofs, and arched openings — built for sun.',
+    keyFeatures: [
+      'Low-pitched roof covered in red clay barrel tiles',
+      'Smooth white or cream stucco walls',
+      'Arched front entry, often deeply recessed',
+      'Arched windows; smaller windows protected by wrought-iron grilles',
+      'Asymmetric facade, sometimes with a small tower or parapet',
+      'Heavy carved wood doors and decorative tile accents'
+    ],
+    elements: [
+      'Red clay barrel tiles forming a low-pitched roof',
+      'Smooth white stucco walls under a deeply recessed arched entry',
+      'Wrought-iron grilles covering arched ground-floor windows'
+    ],
+    tags: ['stucco', 'tile-roof', 'arches', 'mediterranean'],
+    svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#a89568"/><rect x="60" y="135" width="280" height="120" fill="#f4ecd8" stroke="#3e3120" stroke-width="1.5"/><rect x="50" y="115" width="300" height="22" fill="#a83a25" stroke="#3e3120"/><g fill="#7a2a18" stroke="#3e3120" stroke-width="0.6"><path d="M55,115 q5 -8 10 0"/><path d="M70,115 q5 -8 10 0"/><path d="M85,115 q5 -8 10 0"/><path d="M100,115 q5 -8 10 0"/><path d="M115,115 q5 -8 10 0"/><path d="M130,115 q5 -8 10 0"/><path d="M145,115 q5 -8 10 0"/><path d="M160,115 q5 -8 10 0"/><path d="M175,115 q5 -8 10 0"/><path d="M190,115 q5 -8 10 0"/><path d="M205,115 q5 -8 10 0"/><path d="M220,115 q5 -8 10 0"/><path d="M235,115 q5 -8 10 0"/><path d="M250,115 q5 -8 10 0"/><path d="M265,115 q5 -8 10 0"/><path d="M280,115 q5 -8 10 0"/><path d="M295,115 q5 -8 10 0"/><path d="M310,115 q5 -8 10 0"/><path d="M325,115 q5 -8 10 0"/></g><rect x="280" y="80" width="60" height="55" fill="#f4ecd8" stroke="#3e3120" stroke-width="1.5"/><rect x="276" y="74" width="68" height="10" fill="#a83a25" stroke="#3e3120"/><path d="M298,115 L298,98 Q310,86 322,98 L322,115 Z" fill="#3e3120"/><path d="M180,255 L180,200 Q200,180 220,200 L220,255 Z" fill="#5b3a22" stroke="#3e3120"/><path d="M174,255 L174,198 Q200,170 226,198 L226,255" fill="none" stroke="#3e3120"/><path d="M90,225 L90,170 Q120,148 150,170 L150,225 Z" fill="#cfd9e3" stroke="#3e3120"/><g stroke="#1a1a1a" stroke-width="1.5" fill="none"><line x1="100" y1="170" x2="100" y2="225"/><line x1="115" y1="160" x2="115" y2="225"/><line x1="120" y1="158" x2="120" y2="225"/><line x1="125" y1="160" x2="125" y2="225"/><line x1="140" y1="170" x2="140" y2="225"/><line x1="90" y1="190" x2="150" y2="190"/><line x1="90" y1="210" x2="150" y2="210"/></g><rect x="240" y="160" width="22" height="22" fill="#cfd9e3" stroke="#3e3120"/></svg>'
+  },
+  {
+    id: 'mid-century-modern',
+    name: 'Mid-Century Modern',
+    period: '1945–1970',
+    region: 'Postwar suburbs nationwide; especially California and the Southwest',
+    summary: 'Postwar modernism for the middle class. Inspired by Bauhaus and Frank Lloyd Wright, popularized by builders like Joseph Eichler. Houses dissolve the line between inside and outside through glass walls, low horizontal forms, and integration with the landscape.',
+    keyFeatures: [
+      'Flat, low-slope shed, or butterfly roofs',
+      'Long, low, asymmetric horizontal massing',
+      'Floor-to-ceiling glass walls and large picture windows',
+      'Exposed structural posts and beams',
+      'Mixed natural materials: stone, wood, glass',
+      'Open floor plan integrated with patios and landscape'
+    ],
+    elements: [
+      'Floor-to-ceiling glass walls broken only by slim vertical posts',
+      'A flat or low-slope roof extending well past the walls in a deep overhang',
+      'Long horizontal massing emphasized by a continuous flat roofline'
+    ],
+    tags: ['modernist', 'flat-roof', 'glass', 'horizontal'],
+    svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><polygon points="40,170 370,130 370,140 40,180" fill="#3e3120" stroke="#3e3120"/><rect x="60" y="170" width="80" height="85" fill="#7a8a7a" stroke="#3e3120" stroke-width="1.5"/><g stroke="#3e3120" stroke-width="0.6"><line x1="60" y1="185" x2="140" y2="185"/><line x1="60" y1="200" x2="140" y2="200"/><line x1="60" y1="215" x2="140" y2="215"/><line x1="60" y1="230" x2="140" y2="230"/><line x1="60" y1="245" x2="140" y2="245"/><line x1="80" y1="170" x2="80" y2="185"/><line x1="105" y1="170" x2="105" y2="185"/><line x1="125" y1="170" x2="125" y2="185"/><line x1="70" y1="185" x2="70" y2="200"/><line x1="95" y1="185" x2="95" y2="200"/><line x1="115" y1="185" x2="115" y2="200"/><line x1="75" y1="200" x2="75" y2="215"/><line x1="100" y1="200" x2="100" y2="215"/><line x1="125" y1="200" x2="125" y2="215"/></g><rect x="140" y="160" width="160" height="95" fill="#cfd9e3" stroke="#3e3120" stroke-width="1.5"/><g stroke="#3e3120" stroke-width="2"><line x1="180" y1="160" x2="180" y2="255"/><line x1="220" y1="160" x2="220" y2="255"/><line x1="260" y1="160" x2="260" y2="255"/></g><rect x="138" y="158" width="164" height="6" fill="#3e3120"/><rect x="300" y="148" width="60" height="107" fill="#a87a4a" stroke="#3e3120" stroke-width="1.5"/><g stroke="#7a5236" stroke-width="0.6"><line x1="300" y1="160" x2="360" y2="160"/><line x1="300" y1="172" x2="360" y2="172"/><line x1="300" y1="184" x2="360" y2="184"/><line x1="300" y1="196" x2="360" y2="196"/><line x1="300" y1="208" x2="360" y2="208"/><line x1="300" y1="220" x2="360" y2="220"/><line x1="300" y1="232" x2="360" y2="232"/><line x1="300" y1="244" x2="360" y2="244"/></g><rect x="312" y="166" width="36" height="14" fill="#cfd9e3" stroke="#3e3120"/><rect x="226" y="195" width="28" height="60" fill="#3e2a18" stroke="#3e3120"/></svg>'
   }
 ];
 
