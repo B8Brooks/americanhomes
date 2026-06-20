@@ -1,7 +1,12 @@
 // American residential architectural styles.
-// Each entry: id, name, period, region, summary, keyFeatures, elements, tags, svg.
+// Each entry: id, name, period, region, summary, keyFeatures, elements, tags,
+// svg (a single fallback illustration), and optional examples[].
 // `elements` are the prompts used by the Element Quiz; the strongest, most
 // diagnostic features should be at the top.
+// `examples[]` items: { kind: 'svg' | 'photo', src, alt, credit? }
+//   - kind 'svg': src is an inline SVG string.
+//   - kind 'photo': src is a URL (rendered into <img>); credit is
+//     { source: 'Wikimedia Commons', filename, page } for attribution.
 
 window.STYLES = [
   {
@@ -153,7 +158,48 @@ window.STYLES = [
       'Patterned scalloped shingles filling the front-facing gable'
     ],
     tags: ['victorian', 'asymmetric', 'turret', 'wraparound-porch'],
-    svg: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="150" y="120" width="190" height="135" fill="#e6c2a6" stroke="#3e3120" stroke-width="1.5"/><polygon points="148,120 195,90 242,120" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><polygon points="240,120 295,55 350,120" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><polygon points="248,120 295,75 342,120" fill="#d4b08c" stroke="#3e3120" stroke-width="1.5"/><g fill="none" stroke="#3e3120" stroke-width="0.7"><path d="M260,100 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0"/><path d="M260,108 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0"/></g><path d="M55 255 L55 145 Q55 100 100 100 Q145 100 145 145 L145 255 Z" fill="#e6c2a6" stroke="#3e3120" stroke-width="1.5"/><polygon points="47,100 100,30 153,100" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><line x1="100" y1="30" x2="100" y2="14" stroke="#3e3120" stroke-width="2"/><circle cx="100" cy="13" r="3" fill="#3e3120"/><rect x="76" y="155" width="16" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="108" y="155" width="16" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="50" y="220" width="295" height="35" fill="#d4b08c" stroke="#3e3120" stroke-width="1.5"/><g fill="#a37a55" stroke="#3e3120"><rect x="62" y="222" width="5" height="33"/><rect x="148" y="222" width="5" height="33"/><rect x="204" y="222" width="5" height="33"/><rect x="260" y="222" width="5" height="33"/><rect x="316" y="222" width="5" height="33"/></g><line x1="55" y1="232" x2="345" y2="232" stroke="#a37a55"/><rect x="170" y="135" width="32" height="38" fill="#cfd9e3" stroke="#3e3120"/><rect x="225" y="135" width="32" height="38" fill="#cfd9e3" stroke="#3e3120"/><rect x="170" y="190" width="32" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="240" y="190" width="32" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="296" y="190" width="32" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="208" y="225" width="22" height="30" fill="#3e2a18" stroke="#3e3120"/></svg>'
+    examples: [
+      {
+        kind: 'svg',
+        alt: 'Illustration of a Queen Anne house with corner turret, wraparound porch, and patterned shingles',
+        src: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="150" y="120" width="190" height="135" fill="#e6c2a6" stroke="#3e3120" stroke-width="1.5"/><polygon points="148,120 195,90 242,120" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><polygon points="240,120 295,55 350,120" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><polygon points="248,120 295,75 342,120" fill="#d4b08c" stroke="#3e3120" stroke-width="1.5"/><g fill="none" stroke="#3e3120" stroke-width="0.7"><path d="M260,100 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0"/><path d="M260,108 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0 q5 -5 10 0"/></g><path d="M55 255 L55 145 Q55 100 100 100 Q145 100 145 145 L145 255 Z" fill="#e6c2a6" stroke="#3e3120" stroke-width="1.5"/><polygon points="47,100 100,30 153,100" fill="#7a5236" stroke="#3e3120" stroke-width="1.5"/><line x1="100" y1="30" x2="100" y2="14" stroke="#3e3120" stroke-width="2"/><circle cx="100" cy="13" r="3" fill="#3e3120"/><rect x="76" y="155" width="16" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="108" y="155" width="16" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="50" y="220" width="295" height="35" fill="#d4b08c" stroke="#3e3120" stroke-width="1.5"/><g fill="#a37a55" stroke="#3e3120"><rect x="62" y="222" width="5" height="33"/><rect x="148" y="222" width="5" height="33"/><rect x="204" y="222" width="5" height="33"/><rect x="260" y="222" width="5" height="33"/><rect x="316" y="222" width="5" height="33"/></g><line x1="55" y1="232" x2="345" y2="232" stroke="#a37a55"/><rect x="170" y="135" width="32" height="38" fill="#cfd9e3" stroke="#3e3120"/><rect x="225" y="135" width="32" height="38" fill="#cfd9e3" stroke="#3e3120"/><rect x="170" y="190" width="32" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="240" y="190" width="32" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="296" y="190" width="32" height="32" fill="#cfd9e3" stroke="#3e3120"/><rect x="208" y="225" width="22" height="30" fill="#3e2a18" stroke="#3e3120"/></svg>'
+      },
+      {
+        kind: 'svg',
+        alt: 'Vernacular Queen Anne with cross gable, projecting bay window, and full-width porch',
+        src: '<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="252" width="400" height="28" fill="#9caa86"/><rect x="90" y="115" width="220" height="140" fill="#f0d878" stroke="#3e3120" stroke-width="1.5"/><polygon points="80,115 160,80 320,80 310,115" fill="#3a5a3a" stroke="#3e3120" stroke-width="1.5"/><polygon points="150,125 200,55 250,125" fill="#3a5a3a" stroke="#3e3120" stroke-width="1.5"/><polygon points="160,115 200,68 240,115" fill="#f0d878" stroke="#3e3120" stroke-width="1.5"/><g fill="none" stroke="#a18540" stroke-width="0.7"><path d="M165,98 q5 -4 10 0 q5 -4 10 0 q5 -4 10 0 q5 -4 10 0 q5 -4 10 0 q5 -4 10 0 q5 -4 10 0"/><path d="M168,90 q5 -4 10 0 q5 -4 10 0 q5 -4 10 0 q5 -4 10 0 q5 -4 10 0 q5 -4 10 0"/></g><rect x="190" y="100" width="20" height="20" fill="#cfd9e3" stroke="#3e3120"/><rect x="115" y="130" width="35" height="42" fill="#cfd9e3" stroke="#3e3120"/><rect x="250" y="130" width="35" height="42" fill="#cfd9e3" stroke="#3e3120"/><g stroke="#3e3120"><line x1="132" y1="130" x2="132" y2="172"/><line x1="115" y1="151" x2="150" y2="151"/><line x1="267" y1="130" x2="267" y2="172"/><line x1="250" y1="151" x2="285" y2="151"/></g><polygon points="135,180 135,220 145,230 175,230 185,220 185,180" fill="#f0d878" stroke="#3e3120" stroke-width="1.5"/><polygon points="135,180 145,170 175,170 185,180" fill="#3a5a3a" stroke="#3e3120" stroke-width="1.5"/><rect x="145" y="190" width="35" height="32" fill="#cfd9e3" stroke="#3e3120"/><line x1="158" y1="190" x2="158" y2="222" stroke="#3e3120"/><line x1="172" y1="190" x2="172" y2="222" stroke="#3e3120"/><rect x="70" y="220" width="260" height="35" fill="#e6c2a6" stroke="#3e3120" stroke-width="1.5"/><line x1="70" y1="220" x2="330" y2="220" stroke="#3e3120" stroke-width="2"/><g fill="#a37a55" stroke="#3e3120"><rect x="78" y="222" width="5" height="33"/><rect x="218" y="222" width="5" height="33"/><rect x="262" y="222" width="5" height="33"/><rect x="318" y="222" width="5" height="33"/></g><rect x="240" y="225" width="22" height="30" fill="#3e2a18" stroke="#3e3120"/><rect x="288" y="225" width="22" height="30" fill="#cfd9e3" stroke="#3e3120"/></svg>'
+      },
+      {
+        kind: 'photo',
+        alt: 'Carson Mansion, Eureka, California — one of the most famous Queen Anne houses in the United States',
+        src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Carson_Mansion_Eureka_California.jpg?width=900',
+        credit: {
+          source: 'Wikimedia Commons',
+          filename: 'Carson Mansion Eureka California.jpg',
+          page: 'https://commons.wikimedia.org/wiki/File:Carson_Mansion_Eureka_California.jpg'
+        }
+      },
+      {
+        kind: 'photo',
+        alt: 'Queen Anne House, Los Angeles — listed on the National Register of Historic Places',
+        src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Queen_Anne_House_Los_Angeles.JPG?width=900',
+        credit: {
+          source: 'Wikimedia Commons',
+          filename: 'Queen Anne House Los Angeles.JPG',
+          page: 'https://commons.wikimedia.org/wiki/File:Queen_Anne_House_Los_Angeles.JPG'
+        }
+      },
+      {
+        kind: 'photo',
+        alt: 'The Painted Ladies — a row of Queen Anne Victorian houses on Steiner Street facing Alamo Square, San Francisco',
+        src: 'https://commons.wikimedia.org/wiki/Special:FilePath/Painted_Ladies%2C_Alamo_Square.jpg?width=900',
+        credit: {
+          source: 'Wikimedia Commons',
+          filename: 'Painted Ladies, Alamo Square.jpg',
+          page: 'https://commons.wikimedia.org/wiki/File:Painted_Ladies,_Alamo_Square.jpg'
+        }
+      }
+    ]
   },
   {
     id: 'foursquare',
@@ -270,4 +316,16 @@ window.STYLES = [
 // Helper: look up a style by id.
 window.STYLE_BY_ID = function (id) {
   return window.STYLES.find(function (s) { return s.id === id; });
+};
+
+// Helper: return the examples array for a style, backfilling from the legacy
+// single `svg` field for styles that haven't been migrated yet.
+window.STYLE_EXAMPLES = function (style) {
+  if (style.examples && style.examples.length) return style.examples;
+  return [{
+    kind: 'svg',
+    src: style.svg,
+    alt: 'Illustration of a ' + style.name + ' house',
+    credit: null
+  }];
 };
