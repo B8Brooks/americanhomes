@@ -5,6 +5,7 @@
 var App = {
   STYLES: window.STYLES || [],
   currentStyleId: null,
+  currentExampleIdx: 0,
   styleQuiz: { current: null, score: 0, total: 0 },
   elementQuiz: { current: null, score: 0, total: 0 }
 };
@@ -85,15 +86,59 @@ App.renderStyleIndex = function () {
   }
 };
 
+App.renderExampleInline = function (example) {
+  var badge = '<span class="kind-badge">' + (example.kind === 'photo' ? 'Photo' : 'Drawing') + '</span>';
+  if (example.kind === 'svg') return example.src + badge;
+  return '<div class="photo-wrap"><img src="' + App.escape(example.src) +
+         '" alt="' + App.escape(example.alt) + '" loading="lazy" /></div>' + badge;
+};
+
+App.renderCaption = function (example) {
+  if (!example.credit) {
+    return '<p class="caption"><em>' + App.escape(example.alt) + '</em></p>';
+  }
+  var c = example.credit;
+  return '<p class="caption">' + App.escape(example.alt) + ' &mdash; ' +
+         '<a href="' + App.escape(c.page) + '" target="_blank" rel="noopener noreferrer">' +
+         App.escape(c.source) + '</a></p>';
+};
+
 App.selectStyle = function (id) {
-  var s = window.STYLE_BY_ID(id);
-  if (!s) return;
+  if (!window.STYLE_BY_ID(id)) return;
   App.currentStyleId = id;
+  App.currentExampleIdx = 0;
+  App.renderStyleDetail();
+};
+
+App.renderStyleDetail = function () {
+  var s = window.STYLE_BY_ID(App.currentStyleId);
+  if (!s) return;
+  var examples = window.STYLE_EXAMPLES(s);
+  if (App.currentExampleIdx >= examples.length) App.currentExampleIdx = 0;
+  var active = examples[App.currentExampleIdx];
+
   var html = '';
   html += '<h1>' + App.escape(s.name) + '</h1>';
   html += '<div class="period">' + App.escape(s.period) + ' &middot; ' + App.escape(s.region) + '</div>';
   html += '<div class="detail-grid">';
-  html +=   '<div class="illustration-frame">' + s.svg + '</div>';
+  html +=   '<div>';
+  html +=     '<div class="illustration-frame">' + App.renderExampleInline(active) + '</div>';
+  html +=     App.renderCaption(active);
+  if (examples.length > 1) {
+    html += '<div class="thumbnails">';
+    examples.forEach(function (ex, i) {
+      var thumbInner = (ex.kind === 'svg')
+        ? ex.src
+        : '<img src="' + App.escape(ex.src) + '" alt="" loading="lazy" />';
+      html += '<button type="button" class="thumb' + (i === App.currentExampleIdx ? ' active' : '') +
+              '" data-idx="' + i + '" aria-label="Example ' + (i + 1) + ' of ' + examples.length + '">' +
+              thumbInner +
+              '<span class="thumb-dot ' + ex.kind + '"></span>' +
+              '</button>';
+    });
+    html += '</div>';
+  }
+  html +=   '</div>';
   html +=   '<div class="detail-text">';
   html +=     '<h3>Overview</h3><p>' + App.escape(s.summary) + '</p>';
   html +=     '<h3>Key features</h3><ul>';
@@ -105,8 +150,16 @@ App.selectStyle = function (id) {
   html +=   '</div>';
   html += '</div>';
   App.el('style-detail').innerHTML = html;
+
+  document.querySelectorAll('#style-detail .thumb').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      App.currentExampleIdx = parseInt(btn.dataset.idx, 10) || 0;
+      App.renderStyleDetail();
+    });
+  });
+
   document.querySelectorAll('#style-index button').forEach(function (b) {
-    b.classList.toggle('active', b.dataset.id === id);
+    b.classList.toggle('active', b.dataset.id === App.currentStyleId);
   });
 };
 
@@ -116,10 +169,12 @@ App.el('style-search').addEventListener('input', App.renderStyleIndex);
 
 App.nextStyleQuiz = function () {
   var answer = App.pickRandom(App.STYLES);
+  var examples = window.STYLE_EXAMPLES(answer);
+  var example = App.pickRandom(examples);
   var distractors = App.shuffle(App.STYLES.filter(function (s) { return s.id !== answer.id; })).slice(0, 3);
   var options = App.shuffle([answer].concat(distractors));
   App.styleQuiz.current = answer;
-  App.el('sq-illustration').innerHTML = answer.svg;
+  App.el('sq-illustration').innerHTML = App.renderExampleInline(example);
   var choices = App.el('sq-choices');
   choices.innerHTML = '';
   options.forEach(function (s) {
