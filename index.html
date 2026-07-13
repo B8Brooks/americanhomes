@@ -14,6 +14,7 @@
     </div>
     <nav class="modes" role="tablist" aria-label="App modes">
       <button class="mode-btn active" data-mode="learn" role="tab" aria-selected="true">Learn</button>
+      <button class="mode-btn" data-mode="elements" role="tab" aria-selected="false">Elements</button>
       <button class="mode-btn" data-mode="style-quiz" role="tab" aria-selected="false">Style Quiz</button>
       <button class="mode-btn" data-mode="element-quiz" role="tab" aria-selected="false">Element Quiz</button>
     </nav>
@@ -29,6 +30,16 @@
         <ul id="style-index"></ul>
       </aside>
       <article id="style-detail" class="style-detail" aria-live="polite"></article>
+    </section>
+
+    <!-- ELEMENTS (component glossary) -->
+    <section id="elements" class="view">
+      <header class="elements-intro">
+        <h1>Parts of the house</h1>
+        <p>Learn the vocabulary first — most style identification is naming two or three of these
+        components and knowing which styles use them. Click a style chip to jump to it.</p>
+      </header>
+      <div id="element-glossary"></div>
     </section>
 
     <!-- STYLE QUIZ -->
@@ -55,14 +66,14 @@
     <section id="element-quiz" class="view">
       <div class="quiz-card">
         <div class="quiz-header">
-          <h2>Match the element to a style</h2>
+          <h2>Know your elements</h2>
           <div class="quiz-progress">
             <span id="eq-score">Score: 0 / 0</span>
             <button id="eq-reset" class="ghost-btn" type="button">Reset</button>
           </div>
         </div>
         <div class="element-prompt">
-          <div class="element-label">This feature is most characteristic of...</div>
+          <div class="element-label" id="eq-label">This feature is most characteristic of...</div>
           <div id="eq-element" class="element-text"></div>
         </div>
         <div id="eq-choices" class="choices"></div>
@@ -75,10 +86,12 @@
   </main>
 
   <footer class="footer">
-    <span>15 styles &middot; spans the 1600s to today</span>
+    <span id="footer-stats"></span>
   </footer>
 
   <script src="data.js"></script>
+  <script src="photos.js"></script>
+  <script src="elements.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
