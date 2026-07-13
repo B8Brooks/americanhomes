@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - claude/us-residential-architecture-guide-lh0553
+      - claude/architecture-learning-app-rarp6
   workflow_dispatch:
 
 permissions:
