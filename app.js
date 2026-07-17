@@ -9,9 +9,18 @@ var App = {
   currentStyleId: null,
   currentExampleIdx: 0,
   glossaryRendered: false,
-  styleQuiz: { current: null, score: 0, total: 0 },
-  elementQuiz: { current: null, score: 0, total: 0 }
+  styleQuiz: { current: null, score: 0, total: 0, streak: 0, round: { correct: 0, total: 0 } },
+  elementQuiz: { current: null, score: 0, total: 0, streak: 0, round: { correct: 0, total: 0 } }
 };
+
+// Round-summary tiers, best first. Every 10 answers the player gets a grade.
+App.ROUND_TIERS = [
+  { min: 10, title: 'Master Builder', note: 'A perfect round. You could lead the walking tour.' },
+  { min: 8, title: 'Architecture Buff', note: 'Sharp eye — the tricky lookalikes barely slow you down.' },
+  { min: 6, title: 'House Spotter', note: 'Solid! Check the “Don’t confuse with” notes to go further.' },
+  { min: 4, title: 'Getting There', note: 'Keep at it — roof shape first, then symmetry, then details.' },
+  { min: 0, title: 'Keep Looking Up', note: 'Every expert started here. A lap through Learn will pay off.' }
+];
 
 // ---- helpers ------------------------------------------------------------
 
@@ -35,6 +44,30 @@ App.escape = function (s) {
   return String(s).replace(/[&<>"']/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
   });
+};
+
+// Update streak + 10-question round state for a quiz and refresh the streak
+// flame. Returns round-summary HTML when this answer completes a round.
+App.recordAnswer = function (quiz, correct, streakElId) {
+  quiz.streak = correct ? quiz.streak + 1 : 0;
+  var streakEl = App.el(streakElId);
+  if (quiz.streak >= 2) {
+    streakEl.textContent = '🔥 ' + quiz.streak;
+    streakEl.hidden = false;
+  } else {
+    streakEl.hidden = true;
+  }
+  quiz.round.total += 1;
+  if (correct) quiz.round.correct += 1;
+  if (quiz.round.total < 10) return '';
+  var c = quiz.round.correct;
+  var tier = App.ROUND_TIERS.filter(function (t) { return c >= t.min; })[0];
+  quiz.round = { correct: 0, total: 0 };
+  return '<div class="round-card">' +
+         '<div class="round-score">Round complete &middot; ' + c + ' / 10</div>' +
+         '<div class="round-title">' + App.escape(tier.title) + '</div>' +
+         '<div class="round-note">' + App.escape(tier.note) + '</div>' +
+         '</div>';
 };
 
 // Distractors that are actually confusable with the answer: lookalikes first,
@@ -98,12 +131,14 @@ App.hydrateWikiSlots = function (scope, onFail) {
       var img = document.createElement('img');
       img.loading = 'lazy';
       img.alt = alt;
+      img.onload = function () { img.classList.add('loaded'); };
       img.onerror = function () {
         slot.classList.add('wiki-failed');
         slot.innerHTML = '<span class="wiki-msg">Photo unavailable</span>';
         if (onFail) onFail(slot);
       };
       img.src = info.src;
+      if (img.complete) img.classList.add('loaded');
       slot.innerHTML = '';
       slot.appendChild(img);
     }).catch(function () {
@@ -112,8 +147,15 @@ App.hydrateWikiSlots = function (scope, onFail) {
       if (onFail) onFail(slot);
     });
   });
-  // Plain photo examples get the same graceful failure.
+  // Thumbnail strip images: hide the broken-image glyph rather than swap content.
+  scope.querySelectorAll('.thumb > img').forEach(function (img) {
+    img.onerror = function () { img.style.visibility = 'hidden'; };
+    if (img.complete && !img.naturalWidth) img.style.visibility = 'hidden';
+  });
+  // Plain photo examples get the same graceful failure and fade-in.
   scope.querySelectorAll('.photo-wrap img[data-fallback]').forEach(function (img) {
+    img.onload = function () { img.classList.add('loaded'); };
+    if (img.complete && img.naturalWidth) img.classList.add('loaded');
     img.onerror = function () {
       var wrap = img.parentElement;
       wrap.classList.add('wiki-failed');
@@ -163,7 +205,7 @@ App.renderStyleIndex = function () {
     if (s.id === App.currentStyleId) btn.classList.add('active');
     btn.innerHTML = '<span>' + App.escape(s.name) + '</span>' +
                     '<span class="meta">' + App.escape(s.period) + '</span>';
-    btn.addEventListener('click', function () { App.selectStyle(s.id); });
+    btn.addEventListener('click', function () { App.selectStyle(s.id, true); });
     li.appendChild(btn);
     index.appendChild(li);
   });
@@ -206,11 +248,15 @@ App.renderCaption = function (example) {
          App.escape(c.source) + '</a></p>';
 };
 
-App.selectStyle = function (id) {
+App.selectStyle = function (id, scrollToDetail) {
   if (!window.STYLE_BY_ID(id)) return;
   App.currentStyleId = id;
   App.currentExampleIdx = 0;
   App.renderStyleDetail();
+  // On phones the list stacks above the detail, so a tap must visibly respond.
+  if (scrollToDetail && window.matchMedia('(max-width: 820px)').matches) {
+    App.el('style-detail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 };
 
 // Glossary entries that name this style — the style's visual vocabulary.
@@ -293,7 +339,7 @@ App.renderStyleDetail = function () {
     });
   });
   detail.querySelectorAll('.style-chip').forEach(function (btn) {
-    btn.addEventListener('click', function () { App.selectStyle(btn.dataset.style); });
+    btn.addEventListener('click', function () { App.selectStyle(btn.dataset.style, true); });
   });
   detail.querySelectorAll('.vocab-chip').forEach(function (btn) {
     btn.addEventListener('click', function () { App.showElement(btn.dataset.element); });
@@ -340,8 +386,12 @@ App.renderGlossary = function () {
   root.querySelectorAll('.style-chip').forEach(function (btn) {
     btn.addEventListener('click', function () {
       App.switchMode('learn');
-      App.selectStyle(btn.dataset.style);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (window.matchMedia('(max-width: 820px)').matches) {
+        App.selectStyle(btn.dataset.style, true);
+      } else {
+        App.selectStyle(btn.dataset.style);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   });
 };
@@ -412,6 +462,7 @@ App.handleStyleQuizAnswer = function (chosenId) {
     var tell = (answer.lookalikes || []).filter(function (l) { return l.id === chosenId; })[0];
     if (tell) html += '<p><strong>Telling them apart:</strong> ' + App.escape(tell.tell) + '</p>';
   }
+  html += App.recordAnswer(App.styleQuiz, correct, 'sq-streak');
   fb.innerHTML = html;
   App.el('sq-score').textContent = 'Score: ' + App.styleQuiz.score + ' / ' + App.styleQuiz.total;
   App.el('sq-next').hidden = false;
@@ -421,6 +472,9 @@ App.el('sq-next').addEventListener('click', App.nextStyleQuiz);
 App.el('sq-reset').addEventListener('click', function () {
   App.styleQuiz.score = 0;
   App.styleQuiz.total = 0;
+  App.styleQuiz.streak = 0;
+  App.styleQuiz.round = { correct: 0, total: 0 };
+  App.el('sq-streak').hidden = true;
   App.el('sq-score').textContent = 'Score: 0 / 0';
   App.nextStyleQuiz();
 });
@@ -518,6 +572,7 @@ App.handleElementQuizAnswer = function (chosenId) {
                    '<p>' + App.escape(e.definition) + '</p>' +
                    (styleNames ? '<p><strong>Seen on:</strong> ' + App.escape(styleNames) + '</p>' : '');
   }
+  fb.innerHTML += App.recordAnswer(App.elementQuiz, correct, 'eq-streak');
   App.el('eq-score').textContent = 'Score: ' + App.elementQuiz.score + ' / ' + App.elementQuiz.total;
   App.el('eq-next').hidden = false;
 };
@@ -526,6 +581,9 @@ App.el('eq-next').addEventListener('click', App.nextElementQuiz);
 App.el('eq-reset').addEventListener('click', function () {
   App.elementQuiz.score = 0;
   App.elementQuiz.total = 0;
+  App.elementQuiz.streak = 0;
+  App.elementQuiz.round = { correct: 0, total: 0 };
+  App.el('eq-streak').hidden = true;
   App.el('eq-score').textContent = 'Score: 0 / 0';
   App.nextElementQuiz();
 });
