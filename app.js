@@ -40,6 +40,108 @@ App.pickRandom = function (arr, exceptId) {
   return pool[Math.floor(Math.random() * pool.length)];
 };
 
+// ---- progress store (localStorage) --------------------------------------
+// Per-id {seen, correct} for styles and glossary elements, so quizzes can
+// adapt and mastery survives between visits. All access is try/catch-guarded
+// (private browsing modes throw on setItem).
+
+App.PROGRESS_KEY = 'americanhomes-progress';
+
+App.loadProgress = function () {
+  try {
+    var raw = localStorage.getItem(App.PROGRESS_KEY);
+    if (raw) {
+      var p = JSON.parse(raw);
+      if (p && p.styles && p.elements) return p;
+    }
+  } catch (e) { /* storage unavailable */ }
+  return { styles: {}, elements: {} };
+};
+
+App.progress = App.loadProgress();
+
+App.saveProgress = function () {
+  try { localStorage.setItem(App.PROGRESS_KEY, JSON.stringify(App.progress)); }
+  catch (e) { /* storage unavailable */ }
+};
+
+App.recordStat = function (kind, id, correct) {
+  var s = App.progress[kind][id] || { seen: 0, correct: 0 };
+  s.seen += 1;
+  if (correct) s.correct += 1;
+  App.progress[kind][id] = s;
+  App.saveProgress();
+  App.refreshProgressUI();
+};
+
+App.isMastered = function (id) {
+  var s = App.progress.styles[id];
+  return !!s && s.seen >= 5 && s.correct / s.seen >= 0.8;
+};
+
+App.masteredCount = function () {
+  return App.STYLES.filter(function (s) { return App.isMastered(s.id); }).length;
+};
+
+// Weighted answer pick: unseen and often-missed ids come up more.
+// weight = 1 + 2 * missRate + 1 if never seen.
+App.pickWeighted = function (arr, kind) {
+  var weights = arr.map(function (item) {
+    var s = App.progress[kind][item.id];
+    if (!s || !s.seen) return 2;
+    return 1 + 2 * (1 - s.correct / s.seen);
+  });
+  var total = weights.reduce(function (a, b) { return a + b; }, 0);
+  var r = Math.random() * total;
+  for (var i = 0; i < arr.length; i++) {
+    r -= weights[i];
+    if (r <= 0) return arr[i];
+  }
+  return arr[arr.length - 1];
+};
+
+App.resetProgress = function () {
+  App.progress = { styles: {}, elements: {} };
+  App.saveProgress();
+  App.refreshProgressUI();
+  App.renderStyleIndex();
+};
+
+App.refreshProgressUI = function () {
+  var n = App.masteredCount();
+  var answered = Object.keys(App.progress.styles).length > 0 ||
+                 Object.keys(App.progress.elements).length > 0;
+  var text = 'Mastered ' + n + ' / ' + App.STYLES.length + ' styles';
+  ['sq-mastery', 'eq-mastery'].forEach(function (id) {
+    var el = App.el(id);
+    if (el) el.textContent = answered ? text : '';
+  });
+  var box = App.el('progress-box');
+  if (box) {
+    box.hidden = !answered;
+    if (answered) {
+      box.innerHTML = '<strong>' + App.escape(text) + '</strong>' +
+        '<span>Get a style right 5+ times (80%+) in the quizzes to master it.</span>' +
+        '<button type="button" class="ghost-btn" id="progress-reset">Reset progress</button>';
+      var btn = App.el('progress-reset');
+      if (btn) btn.addEventListener('click', App.resetProgress);
+    }
+  }
+  // refresh mastery checkmarks on the Learn list in place
+  document.querySelectorAll('#style-index li button').forEach(function (b) {
+    var has = b.querySelector('.master-badge');
+    if (App.isMastered(b.dataset.id) && !has) {
+      var span = document.createElement('span');
+      span.className = 'master-badge';
+      span.title = 'Mastered';
+      span.textContent = ' ✓';
+      b.firstChild.appendChild(span);
+    } else if (!App.isMastered(b.dataset.id) && has) {
+      has.remove();
+    }
+  });
+};
+
 App.escape = function (s) {
   return String(s).replace(/[&<>"']/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -177,6 +279,7 @@ App.switchMode = function (mode) {
     v.classList.toggle('active', v.id === mode);
   });
   if (mode === 'elements' && !App.glossaryRendered) App.renderGlossary();
+  if (mode === 'identify' && !App.el('id-body').innerHTML) App.startIdentify();
   if (mode === 'style-quiz' && !App.styleQuiz.current) App.nextStyleQuiz();
   if (mode === 'element-quiz' && !App.elementQuiz.current) App.nextElementQuiz();
 };
@@ -203,7 +306,9 @@ App.renderStyleIndex = function () {
     btn.type = 'button';
     btn.dataset.id = s.id;
     if (s.id === App.currentStyleId) btn.classList.add('active');
-    btn.innerHTML = '<span>' + App.escape(s.name) + '</span>' +
+    btn.innerHTML = '<span>' + App.escape(s.name) +
+                    (App.isMastered(s.id) ? ' <span class="master-badge" title="Mastered">✓</span>' : '') +
+                    '</span>' +
                     '<span class="meta">' + App.escape(s.period) + '</span>';
     btn.addEventListener('click', function () { App.selectStyle(s.id, true); });
     li.appendChild(btn);
@@ -319,7 +424,8 @@ App.renderStyleDetail = function () {
       var other = window.STYLE_BY_ID(l.id);
       if (!other) return;
       html += '<li><button type="button" class="chip style-chip" data-style="' + other.id + '">' +
-              App.escape(other.name) + '</button> <span>' + App.escape(l.tell) + '</span></li>';
+              App.escape(other.name) + '</button> <span>' + App.escape(l.tell) + '</span> ' +
+              '<button type="button" class="chip compare-btn" data-a="' + s.id + '" data-b="' + other.id + '">Compare side-by-side</button></li>';
     });
     html += '</ul>';
   }
@@ -343,6 +449,13 @@ App.renderStyleDetail = function () {
   });
   detail.querySelectorAll('.vocab-chip').forEach(function (btn) {
     btn.addEventListener('click', function () { App.showElement(btn.dataset.element); });
+  });
+  detail.querySelectorAll('.compare-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var a = window.STYLE_BY_ID(btn.dataset.a);
+      var tell = ((a && a.lookalikes) || []).filter(function (l) { return l.id === btn.dataset.b; })[0];
+      App.showCompare(btn.dataset.a, btn.dataset.b, tell ? tell.tell : '');
+    });
   });
 
   document.querySelectorAll('#style-index button').forEach(function (b) {
@@ -407,10 +520,208 @@ App.showElement = function (elementId) {
   }
 };
 
+// ---- IDENTIFY (field-guide wizard) --------------------------------------
+// Walks the expert's checklist: roof → stories → symmetry → material →
+// standout features, then ranks styles against STYLE_FACETS.
+
+App.identify = { step: 0, answers: {} };
+
+App.startIdentify = function () {
+  App.identify = { step: 0, answers: {} };
+  App.renderIdentifyStep();
+};
+
+App.renderIdentifyStep = function () {
+  var qs = window.ID_QUESTIONS || [];
+  var body = App.el('id-body');
+  var step = App.identify.step;
+  if (step >= qs.length) { App.renderIdentifyResults(); return; }
+  var q = qs[step];
+  var picked = App.identify.answers[q.key] || (q.multi ? [] : null);
+
+  var html = '<div class="id-progress">';
+  qs.forEach(function (_, i) {
+    html += '<span class="id-dot' + (i < step ? ' done' : i === step ? ' now' : '') + '"></span>';
+  });
+  html += '</div>';
+  html += '<h3 class="id-title">' + App.escape(q.title) + '</h3>';
+  html += '<p class="id-hint">' + App.escape(q.hint) + '</p>';
+  html += '<div class="choices id-options">';
+  q.options.forEach(function (o) {
+    var sel = q.multi ? picked.indexOf(o.value) >= 0 : picked === o.value;
+    html += '<button type="button" class="choice id-option' + (sel ? ' selected' : '') +
+            '" data-value="' + App.escape(o.value) + '">' + App.escape(o.label) + '</button>';
+  });
+  html += '</div>';
+  html += '<div class="id-nav">';
+  if (step > 0) html += '<button type="button" class="ghost-btn" id="id-back">&larr; Back</button>';
+  html += '<span class="id-spacer"></span>';
+  html += '<button type="button" class="ghost-btn" id="id-skip">' + (q.multi ? 'None of these' : 'Not sure — skip') + '</button>';
+  if (q.multi) html += '<button type="button" class="primary-btn" id="id-done">Show matches &rarr;</button>';
+  html += '</div>';
+  body.innerHTML = html;
+
+  body.querySelectorAll('.id-option').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (q.multi) {
+        var list = App.identify.answers[q.key] || [];
+        var i = list.indexOf(btn.dataset.value);
+        if (i >= 0) list.splice(i, 1); else list.push(btn.dataset.value);
+        App.identify.answers[q.key] = list;
+        btn.classList.toggle('selected');
+      } else {
+        App.identify.answers[q.key] = btn.dataset.value;
+        App.identify.step += 1;
+        App.renderIdentifyStep();
+      }
+    });
+  });
+  var back = App.el('id-back');
+  if (back) back.addEventListener('click', function () {
+    App.identify.step -= 1;
+    App.renderIdentifyStep();
+  });
+  App.el('id-skip').addEventListener('click', function () {
+    delete App.identify.answers[q.key];
+    App.identify.step += 1;
+    App.renderIdentifyStep();
+  });
+  var done = App.el('id-done');
+  if (done) done.addEventListener('click', function () {
+    App.identify.step += 1;
+    App.renderIdentifyStep();
+  });
+};
+
+App.scoreIdentify = function (answers) {
+  var qs = window.ID_QUESTIONS || [];
+  var scores = {};
+  App.STYLES.forEach(function (s) { scores[s.id] = 0; });
+  qs.forEach(function (q) {
+    var a = answers[q.key];
+    if (a === undefined || a === null || (q.multi && !a.length)) return;
+    if (q.multi) {
+      a.forEach(function (v) {
+        var opt = q.options.filter(function (o) { return o.value === v; })[0];
+        if (!opt || !opt.points) return;
+        Object.keys(opt.points).forEach(function (sid) {
+          if (sid in scores) scores[sid] += opt.points[sid];
+        });
+      });
+      return;
+    }
+    App.STYLES.forEach(function (s) {
+      var f = window.STYLE_FACETS[s.id];
+      if (!f) return;
+      if (q.key === 'symmetry') {
+        if (f.symmetry === 'either') scores[s.id] += 1;
+        else scores[s.id] += (f.symmetry === a) ? 2 : -1;
+      } else {
+        var vals = f[q.key === 'stories' ? 'stories' : q.key] || [];
+        scores[s.id] += (vals.indexOf(a) >= 0) ? 2 : -1;
+      }
+    });
+  });
+  return scores;
+};
+
+App.renderIdentifyResults = function () {
+  var body = App.el('id-body');
+  var answers = App.identify.answers;
+  var answeredAny = Object.keys(answers).some(function (k) {
+    var a = answers[k];
+    return Array.isArray(a) ? a.length > 0 : a !== undefined;
+  });
+  if (!answeredAny) {
+    body.innerHTML = '<p class="id-hint">You skipped everything — answer at least one question and the matches will narrow fast.</p>' +
+      '<div class="id-nav"><span class="id-spacer"></span><button type="button" class="primary-btn" id="id-again">Try again</button></div>';
+    App.el('id-again').addEventListener('click', App.startIdentify);
+    return;
+  }
+  var scores = App.scoreIdentify(answers);
+  var ranked = App.STYLES
+    .map(function (s) { return { s: s, score: scores[s.id] }; })
+    .filter(function (r) { return r.score > 0; })
+    .sort(function (a, b) { return b.score - a.score; })
+    .slice(0, 5);
+
+  var html = '<h3 class="id-title">Best matches</h3>';
+  if (!ranked.length) {
+    html += '<p class="id-hint">Nothing matched that combination — real houses mix styles! Try fewer answers, or browse Learn.</p>';
+  }
+  ranked.forEach(function (r, i) {
+    var tier = r.score >= 6 ? 'Strong match' : r.score >= 3 ? 'Good match' : 'Possible';
+    var example = window.STYLE_EXAMPLES(r.s)[0];
+    html += '<div class="id-result' + (i === 0 ? ' top' : '') + '">';
+    html +=   '<div class="id-result-thumb">' + (example && example.kind === 'svg' ? example.src : '') + '</div>';
+    html +=   '<div class="id-result-info">';
+    html +=     '<div class="id-tier">' + tier + '</div>';
+    html +=     '<h4>' + App.escape(r.s.name) + '</h4>';
+    html +=     '<div class="meta">' + App.escape(r.s.period) + '</div>';
+    html +=     '<button type="button" class="chip style-chip" data-style="' + r.s.id + '">Read about it &rarr;</button>';
+    html +=   '</div>';
+    html += '</div>';
+  });
+  html += '<div class="id-nav"><span class="id-spacer"></span><button type="button" class="primary-btn" id="id-again">Identify another &rarr;</button></div>';
+  body.innerHTML = html;
+
+  body.querySelectorAll('.style-chip').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      App.switchMode('learn');
+      App.selectStyle(btn.dataset.style, true);
+      if (!window.matchMedia('(max-width: 820px)').matches) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
+  App.el('id-again').addEventListener('click', App.startIdentify);
+};
+
+App.el('id-restart').addEventListener('click', App.startIdentify);
+
+// ---- COMPARE overlay ----------------------------------------------------
+// Side-by-side of a style and one of its lookalikes, opened from the
+// "Don't confuse with" rows in Learn.
+
+App.showCompare = function (aId, bId, tell) {
+  var a = window.STYLE_BY_ID(aId), b = window.STYLE_BY_ID(bId);
+  if (!a || !b) return;
+  var old = App.el('compare-overlay');
+  if (old) old.remove();
+
+  function panel(s) {
+    var ex = window.STYLE_EXAMPLES(s)[0];
+    return '<div class="compare-col">' +
+           '<div class="compare-thumb">' + (ex && ex.kind === 'svg' ? ex.src : '') + '</div>' +
+           '<h4>' + App.escape(s.name) + '</h4>' +
+           '<div class="meta">' + App.escape(s.period) + '</div>' +
+           '<ul>' + s.keyFeatures.slice(0, 4).map(function (f) {
+             return '<li>' + App.escape(f) + '</li>';
+           }).join('') + '</ul>' +
+           '</div>';
+  }
+
+  var overlay = document.createElement('div');
+  overlay.id = 'compare-overlay';
+  overlay.innerHTML =
+    '<div class="compare-panel" role="dialog" aria-label="Compare styles">' +
+    '<button type="button" class="compare-close" aria-label="Close">&times;</button>' +
+    '<p class="compare-tell">' + App.escape(tell) + '</p>' +
+    '<div class="compare-grid">' + panel(a) + panel(b) + '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) overlay.remove();
+  });
+  overlay.querySelector('.compare-close').addEventListener('click', function () {
+    overlay.remove();
+  });
+};
+
 // ---- STYLE QUIZ --------------------------------------------------------
 
 App.nextStyleQuiz = function () {
-  var answer = App.pickRandom(App.STYLES);
+  var answer = App.pickWeighted(App.STYLES, 'styles');
   var examples = window.STYLE_EXAMPLES(answer);
   var example = App.pickRandom(examples);
   var distractors = App.similarStyles(answer, 3);
@@ -463,6 +774,7 @@ App.handleStyleQuizAnswer = function (chosenId) {
     if (tell) html += '<p><strong>Telling them apart:</strong> ' + App.escape(tell.tell) + '</p>';
   }
   html += App.recordAnswer(App.styleQuiz, correct, 'sq-streak');
+  App.recordStat('styles', answer.id, correct);
   fb.innerHTML = html;
   App.el('sq-score').textContent = 'Score: ' + App.styleQuiz.score + ' / ' + App.styleQuiz.total;
   App.el('sq-next').hidden = false;
@@ -495,7 +807,7 @@ App.nextElementQuiz = function () {
 
 App.nextStyleElementQuestion = function () {
   var pool = App.STYLES.filter(function (s) { return s.elements && s.elements.length; });
-  var answer = App.pickRandom(pool);
+  var answer = App.pickWeighted(pool, 'styles');
   var element = App.pickRandom(answer.elements);
   var distractors = App.similarStyles(answer, 3);
   var options = App.shuffle([answer].concat(distractors));
@@ -508,7 +820,7 @@ App.nextStyleElementQuestion = function () {
 };
 
 App.nextComponentQuestion = function () {
-  var answer = App.pickRandom(App.ELEMENTS);
+  var answer = App.pickWeighted(App.ELEMENTS, 'elements');
   var sameCategory = App.ELEMENTS.filter(function (e) {
     return e.id !== answer.id && e.category === answer.category;
   });
@@ -573,6 +885,8 @@ App.handleElementQuizAnswer = function (chosenId) {
                    (styleNames ? '<p><strong>Seen on:</strong> ' + App.escape(styleNames) + '</p>' : '');
   }
   fb.innerHTML += App.recordAnswer(App.elementQuiz, correct, 'eq-streak');
+  if (q.type === 'style') App.recordStat('styles', q.style.id, correct);
+  else App.recordStat('elements', q.element.id, correct);
   App.el('eq-score').textContent = 'Score: ' + App.elementQuiz.score + ' / ' + App.elementQuiz.total;
   App.el('eq-next').hidden = false;
 };
@@ -592,6 +906,7 @@ App.el('eq-reset').addEventListener('click', function () {
 
 App.renderStyleIndex();
 if (App.STYLES.length) App.selectStyle(App.STYLES[0].id);
+App.refreshProgressUI();
 (function () {
   var photoCount = 0;
   App.STYLES.forEach(function (s) {

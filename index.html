@@ -30,6 +30,7 @@
     <nav class="modes" role="tablist" aria-label="App modes">
       <button class="mode-btn active" data-mode="learn" role="tab" aria-selected="true">Learn</button>
       <button class="mode-btn" data-mode="elements" role="tab" aria-selected="false">Elements</button>
+      <button class="mode-btn" data-mode="identify" role="tab" aria-selected="false">Identify</button>
       <button class="mode-btn" data-mode="style-quiz" role="tab" aria-selected="false">Style Quiz</button>
       <button class="mode-btn" data-mode="element-quiz" role="tab" aria-selected="false">Element Quiz</button>
     </nav>
@@ -43,6 +44,7 @@
           <input id="style-search" type="search" placeholder="Search styles..." aria-label="Search styles" />
         </div>
         <ul id="style-index"></ul>
+        <div id="progress-box" class="progress-box" hidden></div>
       </aside>
       <article id="style-detail" class="style-detail" aria-live="polite"></article>
     </section>
@@ -57,6 +59,20 @@
       <div id="element-glossary"></div>
     </section>
 
+    <!-- IDENTIFY (field-guide wizard) -->
+    <section id="identify" class="view">
+      <div class="quiz-card">
+        <div class="quiz-header">
+          <h2>Identify a house</h2>
+          <div class="quiz-progress">
+            <button id="id-restart" class="ghost-btn" type="button">Start over</button>
+          </div>
+        </div>
+        <p class="quiz-hint">Looking at a real house? Answer what you can see — skip anything you're not sure of.</p>
+        <div id="id-body"></div>
+      </div>
+    </section>
+
     <!-- STYLE QUIZ -->
     <section id="style-quiz" class="view">
       <div class="quiz-card">
@@ -68,6 +84,7 @@
             <button id="sq-reset" class="ghost-btn" type="button">Reset</button>
           </div>
         </div>
+        <div id="sq-mastery" class="mastery"></div>
         <div id="sq-illustration" class="quiz-illustration"></div>
         <p class="quiz-hint" id="sq-hint">Which architectural style is this?</p>
         <div id="sq-choices" class="choices"></div>
@@ -89,6 +106,7 @@
             <button id="eq-reset" class="ghost-btn" type="button">Reset</button>
           </div>
         </div>
+        <div id="eq-mastery" class="mastery"></div>
         <div class="element-prompt">
           <div class="element-label" id="eq-label">This feature is most characteristic of...</div>
           <div id="eq-element" class="element-text"></div>
@@ -109,6 +127,7 @@
   <script src="data.js"></script>
   <script src="photos.js"></script>
   <script src="elements.js"></script>
+  <script src="identify.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
